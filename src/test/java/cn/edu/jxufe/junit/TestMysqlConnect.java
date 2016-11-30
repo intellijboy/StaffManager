@@ -18,15 +18,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.alibaba.fastjson.JSON;
+
+import cn.edu.jxufe.dao.DepartmentMapper;
+import cn.edu.jxufe.entity.Department;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({ "classpath:spring/*.xml" })
 public class TestMysqlConnect {
 
 	@Autowired
 	DataSource dataSource;
+	
+	@Autowired
+	DepartmentMapper departmentDao;
 
 	@Test
 	public void testCon() throws SQLException {
 			System.out.println(dataSource.getConnection());
+	}
+	
+	@Test
+	public void testSelectEmploy(){
+		Department department = departmentDao.selectByPrimaryKey(1001);
+		System.out.println(JSON.toJSON(department));
 	}
 }
