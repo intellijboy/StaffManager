@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.jxufe.dao.EmployeeMapper">
+  <resultMap id="BaseResultMap" type="cn.edu.jxufe.entity.Employee">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="employ_name" jdbcType="VARCHAR" property="employName" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="salary" jdbcType="REAL" property="salary" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+    <result column="department_id" jdbcType="INTEGER" property="departmentId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, employ_name, sex, salary, photo, department_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_employee
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_employee
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.jxufe.entity.Employee">
+    insert into t_employee (id, employ_name, sex, 
+      salary, photo, department_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{employName,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, 
+      #{salary,jdbcType=REAL}, #{photo,jdbcType=VARCHAR}, #{departmentId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.jxufe.entity.Employee">
+    insert into t_employee
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="employName != null">
+        employ_name,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="salary != null">
+        salary,
+      </if>
+      <if test="photo != null">
+        photo,
+      </if>
+      <if test="departmentId != null">
+        department_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="employName != null">
+        #{employName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="salary != null">
+        #{salary,jdbcType=REAL},
+      </if>
+      <if test="photo != null">
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null">
+        #{departmentId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.jxufe.entity.Employee">
+    update t_employee
+    <set>
+      <if test="employName != null">
+        employ_name = #{employName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="salary != null">
+        salary = #{salary,jdbcType=REAL},
+      </if>
+      <if test="photo != null">
+        photo = #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null">
+        department_id = #{departmentId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.jxufe.entity.Employee">
+    update t_employee
+    set employ_name = #{employName,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      salary = #{salary,jdbcType=REAL},
+      photo = #{photo,jdbcType=VARCHAR},
+      department_id = #{departmentId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
